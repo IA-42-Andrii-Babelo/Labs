@@ -20,7 +20,7 @@ public class Collections {
     Fiot.addStudent(new Student("Diana", "Hutryk", "Ak813", 95 ));
     Ipsa.addStudent(new Student("Andrii", "Hutryk", "Ak815", 100 ));
 
-        System.out.println(KPI.getAmountOfStudentsOnInstitute());
+        System.out.println(KPI.getAmountOfStudentsOfInstitute());
         System.out.println(KPI.getBiggestFaculty().getName());
         List<Student> coolguys = KPI.getCoolestStudents();
         for (Student student : coolguys) {
@@ -105,14 +105,18 @@ public ArrayList<Faculty> getFaculties() {
     return faculties;
 }
 
-    public int getAmountOfStudentsOnInstitute(){
+    public int getAmountOfStudentsOfInstitute() {
         int total = 0;
-        for (Faculty faculty : faculties) {
+        Iterator<Faculty> iterator = faculties.iterator();
+
+        while (iterator.hasNext()) {
+            Faculty faculty = iterator.next();
             total += faculty.getAmountOfStudents();
         }
 
         return total;
     }
+
 
     public Faculty getBiggestFaculty(){
     Faculty biggest = null;
@@ -127,19 +131,21 @@ public ArrayList<Faculty> getFaculties() {
 
     }
 
-    public List<Student> getCoolestStudents(){
-    List<Student> coolestStudents = new ArrayList<>();
-    for (Faculty faculty : faculties) {
-        Iterator studIterator = faculty.getStudents().iterator();
-        while (studIterator.hasNext()) {
-            Student student = (Student) studIterator.next();
-            if (student.averageGrade >= 95 && student.averageGrade <= 100) {
-                coolestStudents.add(student);
+    public List<Student> getCoolestStudents() {
+        List<Student> coolestStudents = new ArrayList<>();
+        for (Faculty faculty : faculties) {
+            Iterator studentIterator = faculty.getStudents().iterator();
+            while (studentIterator.hasNext()) {
+                Object obj = studentIterator.next();
+                Student student = (Student) obj;
+                if (student.averageGrade >= 95 && student.averageGrade <= 100) {
+                    coolestStudents.add(student);
+                }
             }
         }
-         }
         return coolestStudents;
     }
+
 
 
 }
