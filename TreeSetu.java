@@ -109,11 +109,16 @@ class Institute {
 
     public int getAmountOfStudentsOfInstitute() {
         int total = 0;
-        for (Faculty faculty : faculties) {
+        Iterator<Faculty> iterator = faculties.iterator();
+
+        while (iterator.hasNext()) {
+            Faculty faculty = iterator.next();
             total += faculty.getAmountOfStudents();
         }
+
         return total;
     }
+
 
     public Faculty getBiggestFaculty() {
         return faculties.stream()
